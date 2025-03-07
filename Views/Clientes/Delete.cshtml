@@ -1,0 +1,52 @@
+﻿@model ExemploEF.Models.Cliente
+
+@{
+    ViewData["Title"] = "Excluir Cliente";
+}
+
+<body class="bg-dark text-light">
+    <div class="container mt-5">
+        <div class="text-center mb-4">
+            <h1 class="fw-bold display-4 text-light">Excluir Cliente</h1>
+            <p class="text-muted">Confirme se deseja realmente excluir este cliente do sistema.</p>
+        </div>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+                <i class="bi bi-check-circle me-2"></i> @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <div class="card bg-light text-dark shadow-sm rounded-3">
+            <div class="card-body">
+                <h4 class="card-title mb-3">Cliente</h4>
+                <dl class="row mb-4">
+                    <dt class="col-sm-3 fw-bold">Nome</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.Nome)</dd>
+
+                    <dt class="col-sm-3 fw-bold">Nascimento</dt>
+                    <dd class="col-sm-9">@Model.Nascimento.ToString("dd/MM/yyyy")</dd>
+                </dl>
+
+                <p class="text-danger fw-bold">Tem certeza que deseja excluir este cliente? Esta ação não poderá ser desfeita.</p>
+
+                <form asp-action="Delete" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="ClienteId" />
+
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-danger fw-bold rounded-pill shadow-sm">
+                            <i class="bi bi-trash"></i> Excluir
+                        </button>
+
+                        <a asp-action="Index" class="btn btn-secondary fw-bold rounded-pill shadow-sm">
+                            <i class="bi bi-arrow-left"></i> Voltar para a Lista
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
