@@ -1,0 +1,60 @@
+﻿@model ExemploEF.Models.Produto
+
+@{
+    ViewData["Title"] = "Criar Produto";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4 class="mb-0">Cadastrar Produto</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Nome" class="form-label fw-bold">Nome do Produto</label>
+                            <input asp-for="Nome" class="form-control" placeholder="Digite o nome do produto" />
+                            <span asp-validation-for="Nome" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Estoque" class="form-label fw-bold">Quantidade em Estoque</label>
+                            <input asp-for="Estoque" type="number" class="form-control" placeholder="Informe a quantidade disponível" />
+                            <span asp-validation-for="Estoque" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="CategoriasId" class="form-label fw-bold">Categoria</label>
+                            <select asp-for="CategoriasId" class="form-select" asp-items="ViewBag.CategoriasId">
+                                <option value="">Selecione uma categoria</option>
+                            </select>
+                            <span asp-validation-for="CategoriasId" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="bi bi-check-circle"></i> Cadastrar Produto
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Voltar para Lista
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

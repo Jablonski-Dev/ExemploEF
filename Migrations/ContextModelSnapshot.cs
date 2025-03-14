@@ -34,7 +34,7 @@ namespace ExemploEF.Migrations
 
                     b.HasKey("CategoriaId");
 
-                    b.ToTable("Categorias", (string)null);
+                    b.ToTable("Produtos", (string)null);
                 });
 
             modelBuilder.Entity("ExemploEF.Models.Cliente", b =>
@@ -56,6 +56,45 @@ namespace ExemploEF.Migrations
                     b.HasKey("ClienteId");
 
                     b.ToTable("Clientes", (string)null);
+                });
+
+            modelBuilder.Entity("ExemploEF.Models.Produto", b =>
+                {
+                    b.Property<Guid>("Produtoid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CategoriasId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Estoque")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Produtoid");
+
+                    b.HasIndex("CategoriasId");
+
+                    b.ToTable("Produto_1");
+                });
+
+            modelBuilder.Entity("ExemploEF.Models.Produto", b =>
+                {
+                    b.HasOne("ExemploEF.Models.Categoria", "Categorias")
+                        .WithMany("Produtos")
+                        .HasForeignKey("CategoriasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Categorias");
+                });
+
+            modelBuilder.Entity("ExemploEF.Models.Categoria", b =>
+                {
+                    b.Navigation("Produtos");
                 });
 #pragma warning restore 612, 618
         }
